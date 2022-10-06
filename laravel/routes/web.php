@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/pokemon', function () {
+    return view('pokemon');
+});
+
+Route::get('/teams', function () {
+    return view('teams');
+});
