@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('pokemons', function (Blueprint $table) {
             $table->id();
+            $table->string('Image')->nullable();
+            $table->string('Name');
+            $table->string('DexNumber');
+            $table->string('Type1');
+            $table->string('Type2')->nullable();
+            $table->integer('Gen');
             $table->timestamps();
         });
     }

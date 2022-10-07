@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PokemonsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,16 @@ Route::get('/', function () {
 });
 
 
-Route::get('/pokemon', function () {
-    return view('pokemon');
-});
+//Route::get('/pokemon', function () {
+//    return view('pokemon');
+//});
 
 Route::get('/teams', function () {
     return view('teams');
 });
+
+Route::get('/pokemon',[PokemonsController::class, 'show'])->name('pokemon');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
