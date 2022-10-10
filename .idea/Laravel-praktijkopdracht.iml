@@ -115,6 +115,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/laravel/sanctum" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/phpunit/php-timer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/laravel/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/maximebf/debugbar" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/barryvdh/laravel-debugbar" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

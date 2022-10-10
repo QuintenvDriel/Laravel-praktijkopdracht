@@ -19,16 +19,18 @@ Route::get('/', function () {
 });
 
 
-//Route::get('/pokemon', function () {
-//    return view('pokemon');
-//});
+Route::get('/pokemon', function () {
+    return view('pokemon');
+});
 
 Route::get('/teams', function () {
     return view('teams');
 });
 
-Route::get('/pokemon',[PokemonsController::class, 'show'])->name('pokemon');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('/pokemon', PokemonsController::class);
+Route::get('/pokemon/create', [PokemonsController::class, 'create']);
