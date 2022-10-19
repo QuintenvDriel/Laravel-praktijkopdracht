@@ -92,20 +92,7 @@
                                 <span class="">{{ $message }}</span>
                                 @enderror<br>
                             </div><br>
-{{--                            <div>--}}
-{{--                            <label for="category_id" class="form-label">Category</label>--}}
-{{--                            <select id="category_id"--}}
-{{--                                    name="category_id"--}}
-{{--                                    class="@error('category_id') is-invalid @enderror form-select">--}}
-{{--                                @foreach($categories as $category)--}}
-{{--                                    <option value="{{$category->id}}" class="dropdown-item">{{$category->Name}}</option>--}}
-{{--                            </select>--}}
-{{--                            @error('category_id')--}}
-{{--                            <span class="">{{$message}}</span>--}}
-{{--                            @enderror--}}
-{{--                            </div><br>--}}
-{{--                            @endforeach--}}
-{{--                        </div>--}}
+                        </div>
                     </div>
 
 
