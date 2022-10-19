@@ -13,16 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pokemons', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained();
-            $table->string('Image')->nullable();
-            $table->string('Name');
-            $table->string('DexNumber');
-            $table->string('Type1');
-            $table->string('Type2')->nullable();
-            $table->text('DexEntry')->nullable();
-            $table->integer('Gen');
+            $table->text('Name');
             $table->timestamps();
         });
     }
@@ -34,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pokemons');
+        Schema::dropIfExists('categories');
     }
 };

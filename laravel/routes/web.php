@@ -33,4 +33,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/pokemon', PokemonsController::class);
-Route::get('/pokemon/create', [PokemonsController::class, 'create']);
+
+Route::post('pokemon/search', [PokemonsController::class, 'search'])->name('pokemon.search');
