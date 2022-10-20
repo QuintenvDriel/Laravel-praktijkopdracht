@@ -20,5 +20,41 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+     Category::create([
+        'Name' => 'Genaration 1'
+        ]);
+
+        Category::create([
+            'Name' => 'Genaration 2'
+        ]);
+
+        Category::create([
+            'Name' => 'Genaration 3'
+        ]);
+
+        Category::create([
+            'Name' => 'Genaration 4'
+        ]);
+
+        Category::create([
+            'Name' => 'Genaration 5'
+        ]);
+
+        Category::create([
+            'Name' => 'Genaration 6'
+        ]);
+
+        Category::create([
+            'Name' => 'Genaration 7'
+        ]);
+
+        Category::create([
+            'Name' => 'Genaration 8'
+        ]);
+
+        Category::create([
+            'Name' => 'Genaration 9'
+        ]);
     }
 }

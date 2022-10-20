@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Pokemons;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PokemonsController extends Controller
 {
@@ -71,7 +72,24 @@ class PokemonsController extends Controller
             'Gen'=>'required',
             'Image'=>'required'
         ]);
-        Pokemons::create($request->all());
+        if ($request->hasFile('Image')){
+            $request->validate([
+                'Image' => 'mimes:jpeg,bmp,png'
+            ]);
+            $request->file('Image')->storePublicly('Image', 'public');
+            $image = new Pokemons([
+                "user_id"=> Auth::user()->id,
+                "category_id" => $request->get('category_id'),
+                "Name" => $request->get('Name'),
+                "DexNumber" => $request->get('DexNumber'),
+                "Type1" => $request->get('Type1'),
+                "Type2" => $request->get('Type2'),
+                "Gen" => $request->get('Gen'),
+                "DexEntry" => $request->get('DexEntry'),
+                "Image" => $request->file('Image')->hashName(),
+            ]);
+            $image->save();
+        }
         return redirect()->route('pokemon.index');
     }
 
@@ -96,7 +114,8 @@ class PokemonsController extends Controller
     public function edit($id)
     {
         $pokemon = $id;
-        return view('layouts.edit',['pokemon' => Pokemons::find($id)]);
+        $data2 = Category::all();
+        return view('layouts.edit',['pokemon' => Pokemons::find($id),'categories' => $data2]);
     }
 
     /**
@@ -115,14 +134,18 @@ class PokemonsController extends Controller
             'Gen'=>'required',
             'Image'=>'required'
         ]);
+
+        $request->file('Image')->storePublicly('Image', 'public');
+
         $pokemons = Pokemons::find($id);
-        // Getting values from the blade template form
+        // Getting values
+        $pokemons->category_id = $request->get('category_id');
         $pokemons->Name =  $request->get('Name');
         $pokemons->Dexnumber = $request->get('DexNumber');
         $pokemons->Type1 = $request->get('Type1');
         $pokemons->Type2 = $request->get('Type2');
         $pokemons->Gen = $request->get('Gen');
-        $pokemons->Image = $request->get('Image');
+        $pokemons->Image = $request->file('Image')->hashName();
         $pokemons->DexEntry =$request->get('DexEntry');
         $pokemons->save();
 
@@ -135,10 +158,10 @@ class PokemonsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pokemons $pokemon)
+    public function destroy(Pokemons $pokemon, Category $data2)
     {
         $pokemon->delete();
-        $data2 = Category::all();
-        return redirect(('pokemon')->with('message','verwijderd'), ['categories' => $data2]);
+        $data2->delete();
+        return redirect('pokemon')->with('message','verwijderd');
     }
 }

@@ -11,7 +11,8 @@ class Pokemons extends Model
     use HasFactory;
     protected $table = 'pokemons';
     protected $primaryKey = 'id';
-    protected $fillable =['Image', 'Name', 'DexNumber', 'Type1', 'Type2', 'Gen', 'DexEntry', 'category_id'];
+    protected $foreignKey = 'user_id';
+    protected $fillable =['Image', 'Name', 'DexNumber', 'Type1', 'Type2', 'Gen', 'DexEntry', 'category_id', 'user_id'];
 
     public function category(){
         return $this->belongsTo(Category::class);

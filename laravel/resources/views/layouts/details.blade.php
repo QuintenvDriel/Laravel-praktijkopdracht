@@ -3,7 +3,7 @@
     <div class="card-body">
 
         <div class="card-body">
-                <img src="{{$pokemon->Image}}">
+                <img src="{{ asset('/storage/Image/'.$pokemon->Image) }}" width="200">
                 <br><h1>{{$pokemon->Name}}</h1><br>
                 <h3>Pokedex Entry:</h3>
                 <div>{{$pokemon->DexEntry}}</div><br>

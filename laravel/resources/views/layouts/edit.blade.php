@@ -73,7 +73,7 @@
                             <div>
                                 <br><label for="Image" class="form-label">Image:</label>
                                 <input id="Image"
-                                       type="text"
+                                       type="file"
                                        name="Image"
                                        class="@error('Image') is-invalid @enderror form-control"
                                        value="{{$pokemon->Image}}" />
@@ -92,14 +92,21 @@
                                 <span class="">{{ $message }}</span>
                                 @enderror<br>
                             </div><br>
+                            <div>
+                                <label for="category_id" class="form-label">Category</label>
+                                <select id="category_id"
+                                        name="category_id"
+                                        class="@error('category_id') is-invalid @enderror form-select">
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}" class="dropdown-item">{{$category->Name}}</option>
+                                    @endforeach
+                                </select><br>
+                                @error('category_id')
+                                <span class="">{{$message}}</span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-
-
-
-
-
-
 
                     <input type="submit" value="Save" class="btn btn-success"><br>
                 </form>
