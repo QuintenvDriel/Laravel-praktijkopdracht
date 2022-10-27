@@ -90,6 +90,7 @@ class PokemonsController extends Controller
             ]);
             $image->save();
         }
+
         return redirect()->route('pokemon.index');
     }
 

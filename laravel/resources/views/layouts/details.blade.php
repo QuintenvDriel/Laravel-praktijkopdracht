@@ -16,7 +16,7 @@
 
         </div>
 
-    <div><a href="/pokemon" class="btn btn-info">Go Back </a></div>
+    <div><a href="javascript:history.back()" class="btn btn-info">Go Back </a></div>
         <br>
         <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark">
             Edit</a><br><br>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pokemons;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -14,8 +15,30 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        return view('layouts.profile');
+        $user = Auth::user();
+        $pokemons = Pokemons::where('user_id',$user->id)->orderBy('id','desc')->get();
+
+        return view('layouts.profile', compact('user', 'pokemons'));
     }
+
+    public function status(Request $request, $id)
+    {
+        $pokemon = User::find($request->user_id);
+        $pokemon->status = $request->status;
+        $pokemon->save();
+
+
+//       $pokemons = Pokemons::find($id);
+//       if ($pokemons->Status==1){
+//           $pokemons->Status = '0';
+//       } else{
+//           $pokemons->Status = '1';
+//       }
+//       $pokemons->update();
+//       return view('layouts.profile');
+
+    }
+
 
     /**
      * Show the form for creating a new resource.

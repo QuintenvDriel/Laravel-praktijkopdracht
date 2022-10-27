@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('Type2')->nullable();
             $table->text('DexEntry')->nullable();
             $table->integer('Gen');
+            $table->boolean('Status')->default(1);
             $table->timestamps();
         });
     }

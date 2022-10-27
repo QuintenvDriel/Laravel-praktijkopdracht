@@ -34,12 +34,16 @@ Route::get('/teams', function () {
 
 
 Auth::routes();
-
+Route::resource('/pokemon', PokemonsController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::middleware(['auth'])->group(function (){;
 
-    Route::resource('/pokemon', PokemonsController::class);
+//For logged-in users only
+Route::middleware(['auth'])->group(function (){
 
+Route::resource('pokemon/create', PokemonsController::class);
 Route::post('pokemon/search', [PokemonsController::class, 'search'])->name('pokemon.search');
 Route::get('/profile', [ProfileController::class, 'index']);
+
+Route::put('profile/status',[ProfileController::class, 'status'])->name('profile.status');
+Route::resource('layouts.edit', PokemonsController::class);
 });
