@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="card-body">
+    <div class="card" align="center">
 
         <div class="card-body">
                 <img src="{{ asset('/storage/Image/'.$pokemon->Image) }}" width="200">
@@ -18,9 +18,9 @@
 
     <div><a href="javascript:history.back()" class="btn btn-info">Go Back </a></div>
         <br>
-        <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark">
-            Edit</a><br><br>
-        <form action="{{route('pokemon.destroy', $pokemon->id)}}" method="POST">    @csrf
-            @method('DELETE')
-            <button class="btn btn-danger" type="submit">Verwijderen</button></form>
+{{--        <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark">--}}
+{{--            Edit</a><br><br>--}}
+{{--        <form action="{{route('pokemon.destroy', $pokemon->id)}}" method="POST">    @csrf--}}
+{{--            @method('DELETE')--}}
+{{--            <button class="btn btn-danger" type="submit">Verwijderen</button></form>--}}
 @endsection

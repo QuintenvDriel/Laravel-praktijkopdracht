@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pokemons;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,10 +16,10 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
-        $pokemons = Pokemons::where('user_id',$user->id)->orderBy('id','desc')->get();
+        $users = Auth::user();
+        $pokemons = Pokemons::where('user_id',$users->id)->orderBy('id','desc')->get();
 
-        return view('layouts.profile', compact('user', 'pokemons'));
+        return view('layouts.profile', compact('users', 'pokemons'));
     }
 
     public function status(Request $request, $id)
@@ -26,6 +27,7 @@ class ProfileController extends Controller
         $pokemon = User::find($request->user_id);
         $pokemon->status = $request->status;
         $pokemon->save();
+        return redirect('layouts.profile');
 
 
 //       $pokemons = Pokemons::find($id);
@@ -80,7 +82,10 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = 'Edit your Account';
+        $user = User::find($id);
+
+        return view('layouts.editUser', compact('user', 'title'));
     }
 
     /**
@@ -92,7 +97,17 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+
+        ]);
+
+        $user = User::find($id);
+        $user->update($request->all());
+
+        return redirect('profile')->with('succes','Profile edited.');
+//        return redirect(route('profile/index', $user->id));
     }
 
     /**

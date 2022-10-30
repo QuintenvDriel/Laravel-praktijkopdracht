@@ -4,15 +4,44 @@
         <div class="col-md-8">
             <form action="{{route('pokemon.search')}}" method="post">    @csrf
                 <input type="text" name="other"> <input name="submit" type="submit" class="btn btn-primary btn-sm"
-                                                        value="Search"/></form>
+                                                        value="Search"/></form> <br>
 
-            <div class="m-2">
-                <select>
-                    @foreach($categories as $category)
-                        <option><a href="{{route('pokemon.index', ['category' => $category->id])}}"
-                                   class="dropdown-toggle" data-toggle="dropdown">{{$category->Name}}</a></option>
-                    @endforeach
-                </select>
+            <form class="row flex-wrap" method="post"
+                  action="{{route('pokemon.index')}}">
+                @csrf
+                <div class="form-group mb-3 small">
+                    <select name="category" class="form-control">
+                        <option value="">Choose a category
+                        </option>
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->Name}}
+                            </option>
+                        @endforeach @csrf
+                    </select>
+                    @error('category')
+                    <span class="alert-danger"> {{$message}}</span>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <button type="submit" name="submit" class="btn btn-primary btn-sm">Select</button>
+                </div>
+            </form>
+{{--            <form class="row flex-wrap" method="post"--}}
+{{--                  action="{{route('pokemon.index')}}">--}}
+{{--                <div class="mb-3">--}}
+{{--                <select>--}}
+
+{{--                    @foreach($categories as $category)--}}
+{{--                        <option><a href="{{route('pokemon.index', ['category' => $category->id])}}"--}}
+{{--                                   class="dropdown-toggle" data-toggle="dropdown">{{$category->Name}}</a></option>--}}
+
+{{--                    @endforeach @csrf--}}
+{{--                </select>--}}
+
+{{--                <button type="submit" name="submit" class="btn btn-primary btn-sm">Zoeken</button>--}}
+{{--            </div>--}}
+{{--            </form>--}}
+
             </div>
         </div>
     </div>
@@ -52,10 +81,10 @@
                                 <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark btn-sm">
                                     Edit</a><br><br>
 
-                                <form action="{{route('pokemon.destroy', $pokemon->id)}}" method="POST">    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                                </form>
+{{--                                <form action="{{route('pokemon.destroy', $pokemon->id)}}" method="POST">    @csrf--}}
+{{--                                    @method('DELETE')--}}
+{{--                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>--}}
+{{--                                </form>--}}
 
                             </td>
 

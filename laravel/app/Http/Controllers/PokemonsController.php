@@ -21,9 +21,10 @@ class PokemonsController extends Controller
             ->orWhere('Gen', 'like', '%' . $request->other . '%')
             ->orWhere('Type1', 'like', '%' . $request->other . '%')
             ->orWhere('Type2', 'like', '%' . $request->other . '%')
+            ->orWhere('Category_id', 'like', '%' . $request->other . '%')
             ->get();
-        $data2 = Category::all();
-        return view('pokemon', compact('pokemons'), ['categories' => $data2]);
+        $category = Category::all();
+        return view('pokemon', compact('pokemons'), ['categories' => $category]);
     }
     /**
      * Display a listing of the resource.
@@ -32,14 +33,23 @@ class PokemonsController extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->has('category')){
-            $data = Pokemons::where('category_id', '=', $request->query('category'))->get();
-        } else {
-            $data = Pokemons::all();
+        $pokemons = Pokemons::whereHas('category', function ($query) use ($request) {
+            $query->where('category_id', '=', $request->input('pokemon'));
+        })->get();
+        } else { $pokemons = Pokemons::all();
         }
-        $data2 = Category::all();
-        return view('pokemon', ['pokemons' => $data, 'categories' => $data2]);
+        $categories = Category::all();
+        return view('pokemon',compact('pokemons', 'categories'));
+
+//        if ($request->has('category')){
+//            $data = Pokemons::where('category_id', '=', $request->query('category'))->get();
+//        } else {
+//            $data = Pokemons::all();
+//        }
+//       $data2 = Category::all();
+//        $categories = Category::all();
+//        return view('pokemon', ['pokemons' => $data, 'categories' => $categories]);
     }
 
 
@@ -165,4 +175,5 @@ class PokemonsController extends Controller
         $data2->delete();
         return redirect('pokemon')->with('message','verwijderd');
     }
+
 }

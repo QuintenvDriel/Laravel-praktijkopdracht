@@ -1,6 +1,38 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        <div align="center">
+        <a href="{{route('profile.edit', $users->id)}}" class="btn btn-success"
+           style="margin-right: 20px">Edit account</a>
+
+{{--            <div class="container">--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col-12" style="padding:20px;">--}}
+{{--                        <h2>All users</h2>--}}
+{{--                        <br>--}}
+{{--                        <table class="table">--}}
+{{--                            <tr>--}}
+{{--                                <th scope="user">Name</th>--}}
+{{--                                <th scope="user">E-mail</th>--}}
+{{--                                <th scope="user">Admin</th>--}}
+{{--                            </tr>--}}
+
+{{--                            @foreach($users as $user)--}}
+{{--                                <tr>--}}
+
+{{--                                    <td><h4>{{$user->name}}</h4></td>--}}
+{{--                                    <td>{{$user->email}}</td>--}}
+{{--                                    <td>{{$user->Admin}}</td>--}}
+
+{{--                                </tr>--}}
+{{--                        @endforeach--}}
+
+{{--                    </div>--}}
+{{--                </div>--}}
+            </div>
+        </div>
+        </div>
+    <div class="container">
         <div class="row">
             <div class="col-12" style="padding:20px;">
                 <h2>My Pokemon</h2>
@@ -26,16 +58,17 @@
                             <td>{{$pokemon->Gen}}</td>
                             <td><a href="{{route('pokemon.show', $pokemon->id)}}"
                                    class="btn btn-info btn-sm">Details</a> <br><br>
+
                                 <form action="{{route('profile.status')}}" method="post" >@csrf
                                     @method('PUT')
-                                    <input data-id="{{$pokemon->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $pokemon->Status ? 'checked' : '' }}>
-                                status
+{{--                                    <input action="post" data-id="{{$pokemon->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $pokemon->Status ? 'checked' : '' }}>--}}
+{{--                                status--}}
 
-{{--
-{{--                                    <input id="switch-primary-{{$pokemon->id}}" value="{{$pokemon->Status}}" name="status" type="submit" {{ $pokemon->Status === 1 ? 'checked' : '' }}>--}}
-{{--                                    <label for="switch-primary-{{$pokemon->id}}" >Status</label><br><br>--}}
-{{--                                    --}}
-<br><br>
+                                    <input id="switch-primary-{{$pokemon->id}}" value="{{$pokemon->Status}}" name="status" type="submit" {{ $pokemon->Status === 1 ? 'checked' : '' }}>
+                                    <label for="switch-primary-{{$pokemon->id}}" >Status</label><br><br>
+
+
+{{--<br><br>--}}
                                 <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark btn-sm">
                                     Edit</a><br><br>
 
@@ -49,9 +82,9 @@
 
                         </tr>
                 @endforeach
-
             </div>
         </div>
+    </div>
     </div>
     </div>
     <script>
