@@ -1,37 +1,14 @@
 @extends('layouts.app')
 @section('content')
+    <br>
     <div class="container">
-        <div align="center">
-        <a href="{{route('profile.edit', $users->id)}}" class="btn btn-success"
-           style="margin-right: 20px">Edit account</a>
-
-{{--            <div class="container">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-12" style="padding:20px;">--}}
-{{--                        <h2>All users</h2>--}}
-{{--                        <br>--}}
-{{--                        <table class="table">--}}
-{{--                            <tr>--}}
-{{--                                <th scope="user">Name</th>--}}
-{{--                                <th scope="user">E-mail</th>--}}
-{{--                                <th scope="user">Admin</th>--}}
-{{--                            </tr>--}}
-
-{{--                            @foreach($users as $user)--}}
-{{--                                <tr>--}}
-
-{{--                                    <td><h4>{{$user->name}}</h4></td>--}}
-{{--                                    <td>{{$user->email}}</td>--}}
-{{--                                    <td>{{$user->Admin}}</td>--}}
-
-{{--                                </tr>--}}
-{{--                        @endforeach--}}
-
-{{--                    </div>--}}
-{{--                </div>--}}
-            </div>
+        <div class="row flex-column">
+            <a href="{{route('profile.edit', $users->id)}}" class="btn btn-success"
+               style="margin-right: 20px">Edit account</a>
         </div>
-        </div>
+        <br>
+    </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-12" style="padding:20px;">
@@ -45,6 +22,7 @@
                         <th scope="pokemon">Type 2</th>
                         <th scope="pokemon">Generation</th>
                         <th scope="pokemon">Actions</th>
+                        <th scope="pokemon">Status</th>
                     </tr>
 
                     @foreach($pokemons as $pokemon)
@@ -59,16 +37,6 @@
                             <td><a href="{{route('pokemon.show', $pokemon->id)}}"
                                    class="btn btn-info btn-sm">Details</a> <br><br>
 
-                                <form action="{{route('profile.status')}}" method="post" >@csrf
-                                    @method('PUT')
-{{--                                    <input action="post" data-id="{{$pokemon->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $pokemon->Status ? 'checked' : '' }}>--}}
-{{--                                status--}}
-
-                                    <input id="switch-primary-{{$pokemon->id}}" value="{{$pokemon->Status}}" name="status" type="submit" {{ $pokemon->Status === 1 ? 'checked' : '' }}>
-                                    <label for="switch-primary-{{$pokemon->id}}" >Status</label><br><br>
-
-
-{{--<br><br>--}}
                                 <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark btn-sm">
                                     Edit</a><br><br>
 
@@ -77,7 +45,24 @@
                                     <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                                 </form>
 
-                            </td>
+                                <form action="{{ route('profile.editStatus', $pokemon->id)}}" method="post"
+                                      style="margin-left: 10px">
+                            @method('PATCH')
+                            @csrf
+                            @if($pokemon->Status)
+                                <td>
+                                    <button class="btn btn-outline-danger" type="submit">Make inactive</button>
+                                </td>
+                            @else
+                                <td>
+                                    <button class="btn btn-outline-success" type="submit">Make active</button>
+                                </td>
+                                @endif
+
+                                </form>
+                                </td>
+
+                                </td>
 
 
                         </tr>
@@ -88,8 +73,8 @@
     </div>
     </div>
     <script>
-        $(function() {
-            $('.toggle-class').change(function() {
+        $(function () {
+            $('.toggle-class').change(function () {
                 var status = $(this).prop('checked') == true ? 1 : 0;
                 var user_id = $(this).data('id');
                 console.log(status);
@@ -98,7 +83,7 @@
                     dataType: "json",
                     url: '/status',
                     data: {'status': status, 'pokemon_id': pokemon_id},
-                    success: function(data){
+                    success: function (data) {
                         console.log(data.success)
                     }
                 });

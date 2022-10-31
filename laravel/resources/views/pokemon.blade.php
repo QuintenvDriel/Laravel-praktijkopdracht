@@ -1,12 +1,13 @@
 @extends('layouts.app')
 @section('content')
-    <div class="justify-content-center">
+    <div class="container justify-content-center">
         <div class="col-md-8">
             <form action="{{route('pokemon.search')}}" method="post">    @csrf
                 <input type="text" name="other"> <input name="submit" type="submit" class="btn btn-primary btn-sm"
-                                                        value="Search"/></form> <br>
+                                                        value="Search"/></form>
+            <br>
 
-            <form class="row flex-wrap" method="post"
+            <form class="col-md-3" method="post"
                   action="{{route('pokemon.index')}}">
                 @csrf
                 <div class="form-group mb-3 small">
@@ -26,30 +27,14 @@
                     <button type="submit" name="submit" class="btn btn-primary btn-sm">Select</button>
                 </div>
             </form>
-{{--            <form class="row flex-wrap" method="post"--}}
-{{--                  action="{{route('pokemon.index')}}">--}}
-{{--                <div class="mb-3">--}}
-{{--                <select>--}}
-
-{{--                    @foreach($categories as $category)--}}
-{{--                        <option><a href="{{route('pokemon.index', ['category' => $category->id])}}"--}}
-{{--                                   class="dropdown-toggle" data-toggle="dropdown">{{$category->Name}}</a></option>--}}
-
-{{--                    @endforeach @csrf--}}
-{{--                </select>--}}
-
-{{--                <button type="submit" name="submit" class="btn btn-primary btn-sm">Zoeken</button>--}}
-{{--            </div>--}}
-{{--            </form>--}}
-
-            </div>
         </div>
+    </div>
     </div>
 
     <div class="container">
         <div class="row">
             <div class="col-12" style="padding:20px;">
-                <div class="card">
+                <div class="row flex-column">
                     <a href="{{ url('/pokemon/create') }}" class="btn btn-success " title="Add new pokemon">
                         Add new pokemon
                     </a>
@@ -68,7 +53,6 @@
 
                     @foreach($pokemons as $pokemon)
                         <tr>
-
                             <td><h4>{{$pokemon->Name}}</h4></td>
                             <td><img src="{{ asset('/storage/Image/'.$pokemon->Image) }}" width="200"></td>
                             <td>{{$pokemon->DexNumber}}</td>
@@ -80,11 +64,6 @@
 
                                 <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark btn-sm">
                                     Edit</a><br><br>
-
-{{--                                <form action="{{route('pokemon.destroy', $pokemon->id)}}" method="POST">    @csrf--}}
-{{--                                    @method('DELETE')--}}
-{{--                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>--}}
-{{--                                </form>--}}
 
                             </td>
 

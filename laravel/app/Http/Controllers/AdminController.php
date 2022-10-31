@@ -42,7 +42,9 @@ class AdminController extends Controller
             }
         }
 
-        public function editAdmin(User $user) {
+        public function editAdmin($id) {
+            User::find($id);
+            $user = User::find($id);
             $currentRights = $user -> Admin;
             if ($currentRights) {
                 $newRights = false;
@@ -52,26 +54,32 @@ class AdminController extends Controller
             $user->Admin = $newRights;
             $user->save();
 
-            return redirect(route('admin.admin', $user->id));
+            return redirect(route('admin.index', $user->id));
         }
 
         public function status(Request $request, $id)
         {
-            $pokemon = User::find($request->user_id);
-            $pokemon->status = $request->status;
+            $title = 'admin';
+            if (Pokemons::all()->Status) {
+                $pokemons = Pokemons::all();
+                return view ('admin', compact ('pokemons', 'title'));
+            }
+        }
+
+        public function editStatus($id) {
+            Pokemons::find($id);
+
+            $pokemon = Pokemons::find($id);
+            $currentStatus = $pokemon -> Status;
+            if ($currentStatus) {
+                $newStatus = false;
+            } else {
+                $newStatus = true;
+            }
+            $pokemon->Status = $newStatus;
             $pokemon->save();
-            return redirect('layouts.admin');
 
-
-    //       $pokemons = Pokemons::find($id);
-    //       if ($pokemons->Status==1){
-    //           $pokemons->Status = '0';
-    //       } else{
-    //           $pokemons->Status = '1';
-    //       }
-    //       $pokemons->update();
-    //       return view('layouts.profile');
-
+            return redirect(route('admin.index', $pokemon->id));
         }
 
 

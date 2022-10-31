@@ -1,5 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<div><h1>This page is empty</h1></div>
-<div><h5>And maybe stays empty</h5></div>
+    <br><br><br>
+<div align="center"><h1>This page is not in use right now!</h1></div>
 @endsection

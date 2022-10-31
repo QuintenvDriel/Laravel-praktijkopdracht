@@ -24,21 +24,27 @@ class ProfileController extends Controller
 
     public function status(Request $request, $id)
     {
-        $pokemon = User::find($request->user_id);
-        $pokemon->status = $request->status;
+        $title = 'profile';
+        if (Pokemons::all()->Status) {
+            $pokemons = Pokemons::all();
+            return view ('profile', compact ('pokemons', 'title'));
+        }
+    }
+
+    public function editStatus($id) {
+        Pokemons::find($id);
+
+        $pokemon = Pokemons::find($id);
+        $currentStatus = $pokemon -> Status;
+        if ($currentStatus) {
+            $newStatus = false;
+        } else {
+            $newStatus = true;
+        }
+        $pokemon->Status = $newStatus;
         $pokemon->save();
-        return redirect('layouts.profile');
 
-
-//       $pokemons = Pokemons::find($id);
-//       if ($pokemons->Status==1){
-//           $pokemons->Status = '0';
-//       } else{
-//           $pokemons->Status = '1';
-//       }
-//       $pokemons->update();
-//       return view('layouts.profile');
-
+        return redirect(route('profile.index', $pokemon->id));
     }
 
 

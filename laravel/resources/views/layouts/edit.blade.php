@@ -9,7 +9,8 @@
             <div class="card-header">Edit pokemon</div>
             <div class="card-body">
 
-                <form action="{{ route('pokemon.update', [$pokemon->id]) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('pokemon.update', [$pokemon->id]) }}" method="post"
+                      enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div>
@@ -18,7 +19,7 @@
                                type="text"
                                name="Name"
                                class="@error('Name') is-invalid @enderror form-control"
-                               value="{{$pokemon->Name}}" />
+                               value="{{$pokemon->Name}}"/>
                         @error('Name')
                         <span class="">{{ $message }}</span>
                         @enderror<br>
@@ -29,7 +30,7 @@
                                    type="text"
                                    name="DexNumber"
                                    class="@error('DexNumber') is-invalid @enderror form-control"
-                                   value="{{$pokemon->DexNumber}}" />
+                                   value="{{$pokemon->DexNumber}}"/>
                             @error('DexNumber')
                             <span class="">{{ $message }}</span>
                             @enderror<br>
@@ -40,7 +41,7 @@
                                        type="text"
                                        name="Type1"
                                        class="@error('Type1') is-invalid @enderror form-control"
-                                       value="{{$pokemon->Type1}}" />
+                                       value="{{$pokemon->Type1}}"/>
                                 @error('Type1')
                                 <span class="">{{ $message }}</span>
                                 @enderror<br>
@@ -52,7 +53,7 @@
                                        type="text"
                                        name="Type2"
                                        class="@error('Type2') is-invalid @enderror form-control"
-                                       value="{{$pokemon->Type2}}" />
+                                       value="{{$pokemon->Type2}}"/>
                                 @error('Type2')
                                 <span class="">{{ $message }}</span>
                                 @enderror<br>
@@ -64,7 +65,7 @@
                                        type="number"
                                        name="Gen"
                                        class="@error('Gen') is-invalid @enderror form-control"
-                                       value="{{$pokemon->Gen}}" />
+                                       value="{{$pokemon->Gen}}"/>
                                 @error('Gen')
                                 <span class="">{{ $message }}</span>
                                 @enderror<br>
@@ -76,7 +77,7 @@
                                        type="file"
                                        name="Image"
                                        class="@error('Image') is-invalid @enderror form-control"
-                                       value="{{$pokemon->Image}}" />
+                                       value="{{$pokemon->Image}}"/>
                                 @error('Image')
                                 <span class="">{{ $message }}</span>
                                 @enderror<br>
@@ -87,18 +88,20 @@
                                        type="text"
                                        name="DexEntry"
                                        class="@error('DexEntry') is-invalid @enderror form-control"
-                                       value="{{$pokemon->DexEntry}}" />
+                                       value="{{$pokemon->DexEntry}}"/>
                                 @error('DexEntry')
                                 <span class="">{{ $message }}</span>
                                 @enderror<br>
-                            </div><br>
+                            </div>
+                            <br>
                             <div>
                                 <label for="category_id" class="form-label">Category</label>
                                 <select id="category_id"
                                         name="category_id"
                                         class="@error('category_id') is-invalid @enderror form-select">
                                     @foreach($categories as $category)
-                                        <option value="{{$category->id}}" class="dropdown-item">{{$category->Name}}</option>
+                                        <option value="{{$category->id}}"
+                                                class="dropdown-item">{{$category->Name}}</option>
                                     @endforeach
                                 </select><br>
                                 @error('category_id')

@@ -46,14 +46,21 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //For logged-in users only
 Route::middleware(['auth'])->group(function (){
-//    Route::patch('pokemon/{pokemon.create}/create', [PokemonsController::class, 'create'])->name('pokemon.create');
+
     Route::resource('/profile', ProfileController::class);
+//    Route::get('/profile', [ProfileController::class, 'index']);
+    Route::get('profile/{status}/status', [ProfileController::class, 'status'])->name('profile.status');
+    Route::patch('profile/{status}/editStatus', [ProfileController::class, 'editStatus'])->name('profile.editStatus');
+
     Route::resource('/pokemon', PokemonsController::class);
     Route::post('pokemon/search', [PokemonsController::class, 'search'])->name('pokemon.search');
-    Route::get('/profile', [ProfileController::class, 'index']);
-    Route::put('profile/status',[ProfileController::class, 'status'])->name('profile.status');
+
     Route::resource('/admin', AdminController::class);
     Route::get('admin/{admin}/admin', [AdminController::class, 'admin'])->name('admin.admin');
     Route::patch('admin/{admin}/editAdmin', [AdminController::class, 'editAdmin'])->name('admin.editAdmin');
+    Route::get('admin/{status}/status', [AdminController::class, 'status'])->name('admin.status');
+    Route::patch('admin/{status}/editStatus', [AdminController::class, 'editStatus'])->name('admin.editStatus');
+
+
 
 });
