@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Pokemons;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,6 @@ class PokemonsController extends Controller
             ->orWhere('Type1', 'like', '%' . $request->other . '%')
             ->orWhere('Type2', 'like', '%' . $request->other . '%')
             ->orWhere('Category_id', 'like', '%' . $request->other . '%')
-
             ->get();
         $category = Category::all();
         return view('pokemon', compact('pokemons'), ['categories' => $category]);
@@ -118,8 +118,11 @@ class PokemonsController extends Controller
      */
     public function show($id)
     {
-        $pokemon = $id;
+        if (Auth::user()->login_days >= 3) {
         return view('layouts.details', ['pokemon' => pokemons::find($id)]);
+    }   else{
+            return redirect(route('pokemon.index'));
+        }
     }
 
     /**
@@ -128,11 +131,15 @@ class PokemonsController extends Controller
      * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit(Pokemons $pokemon)
     {
-        $pokemon = $id;
-        $data2 = Category::all();
-        return view('layouts.edit', ['pokemon' => Pokemons::find($id), 'categories' => $data2]);
+        if ($pokemon->user_id === Auth::id()) {
+            $categories = Category::all();
+            return view('layouts.edit', compact('pokemon', 'categories'));
+
+        } else {
+            return redirect(route('pokemon.index'));
+        }
     }
 
     /**

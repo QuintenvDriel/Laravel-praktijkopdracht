@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('profile/{status}/status', [ProfileController::class, 'status'])->name('profile.status');
     Route::patch('profile/{status}/editStatus', [ProfileController::class, 'editStatus'])->name('profile.editStatus');
 
-    Route::resource('/pokemon', PokemonsController::class);
+//    Route::resource('/pokemon', PokemonsController::class);
     Route::post('pokemon/search', [PokemonsController::class, 'search'])->name('pokemon.search');
 
     Route::resource('/admin', AdminController::class);

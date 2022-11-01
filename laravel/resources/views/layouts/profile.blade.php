@@ -51,11 +51,11 @@
                             @csrf
                             @if($pokemon->Status)
                                 <td>
-                                    <button class="btn btn-outline-danger" type="submit">Make inactive</button>
+                                    <button class="btn btn-outline-success" type="submit">Active</button>
                                 </td>
                             @else
                                 <td>
-                                    <button class="btn btn-outline-success" type="submit">Make active</button>
+                                    <button class="btn btn-outline-danger" type="submit">Inactive</button>
                                 </td>
                                 @endif
 

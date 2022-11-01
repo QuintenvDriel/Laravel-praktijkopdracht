@@ -17,7 +17,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div><a href="/pokemon" class="btn btn-info">Pokemon </a> <br> <br>
-                                    <a href="/teams" class="btn btn-info">Pokemon teams</a></div>
+                                        <a href="/profile" class="btn btn-info">My profile</a>
+{{--                                        <a href="/teams" class="btn btn-info">Pokemon teams</a></div>--}}
                                 </div>
 
                                 <img src="https://depopshop.nl/wp-content/uploads/2019/04/Pok%C3%A9mon-logo.jpg" width="450">

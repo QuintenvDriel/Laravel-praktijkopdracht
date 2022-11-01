@@ -27,9 +27,9 @@
                 <a class="navbar-brand" href="{{url('/pokemon')}}">
                     {{config('layout.pokemon', 'Pokemon')}}
                 </a>
-                <a class="navbar-brand" href="{{url('/teams')}}">
-                    {{config('layout.teams', 'Teams')}}
-                </a>
+{{--                <a class="navbar-brand" href="{{url('/teams')}}">--}}
+{{--                    {{config('layout.teams', 'Teams')}}--}}
+{{--                </a>--}}
                 <a class="navbar-brand" href="{{url('/profile')}}">
                     {{config('layout.profile', 'My Profile')}}
                 </a>

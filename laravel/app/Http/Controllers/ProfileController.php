@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $users = Auth::user();
-        $pokemons = Pokemons::where('user_id',$users->id)->orderBy('id','desc')->get();
+        $pokemons = Pokemons::where('user_id', $users->id)->orderBy('id', 'desc')->get();
 
         return view('layouts.profile', compact('users', 'pokemons'));
     }
@@ -27,15 +27,16 @@ class ProfileController extends Controller
         $title = 'profile';
         if (Pokemons::all()->Status) {
             $pokemons = Pokemons::all();
-            return view ('profile', compact ('pokemons', 'title'));
+            return view('profile', compact('pokemons', 'title'));
         }
     }
 
-    public function editStatus($id) {
+    public function editStatus($id)
+    {
         Pokemons::find($id);
 
         $pokemon = Pokemons::find($id);
-        $currentStatus = $pokemon -> Status;
+        $currentStatus = $pokemon->Status;
         if ($currentStatus) {
             $newStatus = false;
         } else {
@@ -61,7 +62,7 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -72,7 +73,7 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -83,22 +84,26 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $title = 'Edit your Account';
-        $user = User::find($id);
+        if (Auth::user()->id == $id) {
+            $title = 'Edit your Account';
+            $user = User::find($id);
 
-        return view('layouts.editUser', compact('user', 'title'));
+            return view('layouts.editUser', compact('user', 'title'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -112,14 +117,14 @@ class ProfileController extends Controller
         $user = User::find($id);
         $user->update($request->all());
 
-        return redirect('profile')->with('succes','Profile edited.');
+        return redirect('profile')->with('succes', 'Profile edited.');
 //        return redirect(route('profile/index', $user->id));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

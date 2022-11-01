@@ -8,6 +8,7 @@
                     <tr>
                         <th scope="user">Name</th>
                         <th scope="user">E-mail</th>
+                        <th scope="user">id</th>
                         <th scope="user">Admin</th>
                         <th scope="user">Created at</th>
                         <th scope="user">Actions</th>
@@ -17,10 +18,12 @@
                         <tr>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
+                            <td>{{$user->id}}</td>
                             <td>{{$user->Admin}}</td>
                             <td>{{$user->created_at}}</td>
-                            <td><a href="{{route('profile.edit', $user->id)}}" class="btn btn-outline-dark btn-sm">
-                                    Edit user</a><br><br>
+                            <td>
+{{--                                <a href="{{route('profile.edit', $user->id)}}" class="btn btn-outline-dark btn-sm">--}}
+{{--                                    Edit user</a><br><br>--}}
                                 <form action="{{route('admin.destroy',$user->id)}}" method="POST">    @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm" type="submit">Delete</button>
@@ -59,6 +62,7 @@
                     <tr>
                         <th scope="pokemon">Name</th>
                         <th scope="pokemon">Image</th>
+                        <th scope="pokemon">User</th>
                         <th scope="pokemon">Pokedex Number</th>
                         <th scope="pokemon">Type 1</th>
                         <th scope="pokemon">Type 2</th>
@@ -72,6 +76,7 @@
 
                             <td><h3>{{$pokemon->Name}}</h3></td>
                             <td><img src="{{ asset('/storage/Image/'.$pokemon->Image) }}" width="200"></td>
+                            <td>{{$pokemon->user_id}}</td>
                             <td>{{$pokemon->DexNumber}}</td>
                             <td>{{$pokemon->Type1}}</td>
                             <td>{{$pokemon->Type2}}</td>
@@ -79,8 +84,8 @@
                             <td><a href="{{route('pokemon.show', $pokemon->id)}}"
                                    class="btn btn-info btn-sm">Details</a> <br><br>
 
-                                <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark btn-sm">
-                                    Edit Pokemon</a><br><br>
+{{--                                <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark btn-sm">--}}
+{{--                                    Edit Pokemon</a><br><br>--}}
 
                                 <form action="{{route('pokemon.destroy', $pokemon->id)}}" method="POST">    @csrf
                                     @method('DELETE')
@@ -93,11 +98,11 @@
                             @csrf
                             @if($pokemon->Status)
                                 <td>
-                                    <button class="btn btn-outline-danger" type="submit">Make inactive</button>
+                                    <button class="btn btn-outline-success" type="submit">Active</button>
                                 </td>
                             @else
                                 <td>
-                                    <button class="btn btn-outline-success" type="submit">Make active</button>
+                                    <button class="btn btn-outline-danger" type="submit">Inactive</button>
                                 </td>
                                 @endif
 

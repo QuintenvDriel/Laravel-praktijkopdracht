@@ -30,7 +30,7 @@ class AdminController extends Controller
 
             return view('layouts.admin', compact('pokemons', 'categories', 'users'));
         } else {
-                return view('/welcome');
+                abort(403);
             }
         }
 
@@ -156,9 +156,14 @@ class AdminController extends Controller
          * @param  int  $id
          * @return \Illuminate\Http\Response
          */
-        public function destroy(User $user, Pokemons $pokemon)
+        public function destroy($id)
         {
+
+            $user = User::find($id);
+
+
             $user->delete();
+
             return redirect('admin')->with('message','verwijderd');
         }
 }
