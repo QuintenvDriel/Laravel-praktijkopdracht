@@ -2,34 +2,20 @@
 @section('content')
     <div class="container justify-content-center">
         @auth
-        <div class="col-md-8">
-            <h4>Search</h4>
-            <form action="{{route('pokemon.search')}}" method="post">    @csrf
-                <input type="text" name="other"> <input name="submit" type="submit" class="btn btn-primary btn-sm"
-                                                        value="Search"/></form>
-            <br>
-            <h4>Filter</h4>
-            <form class="col-md-3" method="post"
-                  action="{{route('pokemon.index')}}">
-                @csrf
-                <div class="form-group mb-3 small">
-                    <select name="category" class="dropdown-toggle">
-                        <option value="">Choose a category
-                        </option>
-                        @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{$category->Name}}
-                            </option>
-                        @endforeach @csrf
-                    </select>
-                    @error('category')
-                    <span class="alert-danger"> {{$message}}</span>
-                    @enderror
+            <div class="col-md-8">
+                <h4>Search</h4>
+                <form action="{{route('pokemon.search')}}" method="post">    @csrf
+                    <input type="text" name="other"> <input name="submit" type="submit" class="btn btn-primary btn-sm"
+                                                            value="Search"/></form>
+                <br>
+                <h4>Filter</h4>
+                <div class="flex-column">
+                    @foreach($categories as $category)
+                        <a href="{{route('pokemon.index', ['category' => $category->id])}}"
+                           class="btn btn-primary btn-sm">{{$category->Name}}</a>
+                    @endforeach
                 </div>
-                <div class="form-group mb-3">
-                    <button type="submit" name="submit" class="btn btn-primary btn-sm">Select</button>
-                </div>
-            </form>
-        </div>
+            </div>
     </div>
     </div>
     @endauth
@@ -38,13 +24,14 @@
         <div class="row">
             <div class="col-12" style="padding:20px;">
                 @auth
-                <div class="row flex-column">
-                    <a href="{{ url('/pokemon/create') }}" class="btn btn-success " title="Add new pokemon">
-                        Add new pokemon
-                    </a>
-                </div>
-                    @else
-                    <div class="row flex-column"><a href="{{ url('/login') }}" class="btn btn-outline-dark">Log in to create a new pokemon</a></div>
+                    <div class="row flex-column">
+                        <a href="{{ url('/pokemon/create') }}" class="btn btn-success " title="Add new pokemon">
+                            Add new pokemon
+                        </a>
+                    </div>
+                @else
+                    <div class="row flex-column"><a href="{{ url('/login') }}" class="btn btn-outline-dark">Log in to
+                            create a new pokemon</a></div>
                 @endauth
                 <br>
                 <table class="table">
@@ -68,11 +55,12 @@
                             <td>{{$pokemon->Gen}}</td>
                             <td>@auth
                                     <a href="{{route('pokemon.show', $pokemon->id)}}"
-                                   class="btn btn-info btn-sm">Details</a> <br><br>
+                                       class="btn btn-info btn-sm">Details</a> <br><br>
 
-{{--                                <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark btn-sm">--}}
-{{--                                    Edit</a><br><br>--}}
-                                @else <a href="{{url('/login')}}" class="btn btn-outline-dark" >Login to see details of pokemon</a>
+                                    {{--                                <a href="{{route('pokemon.edit', $pokemon->id)}}" class="btn btn-outline-dark btn-sm">--}}
+                                    {{--                                    Edit</a><br><br>--}}
+                                @else <a href="{{url('/login')}}" class="btn btn-outline-dark">Login to see details of
+                                        pokemon</a>
                                 @endauth
 
                             </td>
